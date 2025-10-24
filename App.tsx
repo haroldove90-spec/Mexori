@@ -47,9 +47,9 @@ const mockAdmin: User = {
 // --- SUB-COMPONENTS ---
 
 const RideRequestForm = ({ onRideRequest }: { onRideRequest: (details: Omit<TripRequest, 'id' | 'passenger' | 'createdAt' | 'offers'>) => void }) => {
-    const [pickup, setPickup] = useState('123 Main St');
-    const [destination, setDestination] = useState('456 Oak Ave');
-    const [price, setPrice] = useState('15');
+    const [pickup, setPickup] = useState('Ángel de la Independencia');
+    const [destination, setDestination] = useState('Zócalo');
+    const [price, setPrice] = useState('85');
     const [serviceType, setServiceType] = useState<ServiceType>(ServiceType.MOBILITY);
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -63,39 +63,39 @@ const RideRequestForm = ({ onRideRequest }: { onRideRequest: (details: Omit<Trip
     };
 
     return (
-        <div className="bg-gray-900/80 backdrop-blur-md rounded-t-3xl p-6">
+        <div className="bg-[#282829]/90 backdrop-blur-md rounded-t-3xl p-6">
             <h2 className="text-xl font-bold mb-4">Solicitar Viaje</h2>
             <form onSubmit={handleSubmit}>
                 <div className="space-y-4">
                     <div className="relative">
                         <MapPinIcon className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-                        <input type="text" value={pickup} onChange={e => setPickup(e.target.value)} placeholder="Origen" className="w-full bg-gray-800 border border-gray-700 rounded-lg py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-green-500" />
+                        <input type="text" value={pickup} onChange={e => setPickup(e.target.value)} placeholder="Origen" className="w-full bg-[#4B4B4D] text-white border border-gray-700 rounded-lg py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-[#2BB454]" />
                     </div>
                     <div className="relative">
                         <MapPinIcon className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-                        <input type="text" value={destination} onChange={e => setDestination(e.target.value)} placeholder="Destino" className="w-full bg-gray-800 border border-gray-700 rounded-lg py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-green-500" />
+                        <input type="text" value={destination} onChange={e => setDestination(e.target.value)} placeholder="Destino" className="w-full bg-[#4B4B4D] text-white border border-gray-700 rounded-lg py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-[#2BB454]" />
                     </div>
                     <div className="relative">
                         <DollarSignIcon className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-                        <input type="number" value={price} onChange={e => setPrice(e.target.value)} placeholder="Oferta" className="w-full bg-gray-800 border border-gray-700 rounded-lg py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-green-500" />
+                        <input type="number" value={price} onChange={e => setPrice(e.target.value)} placeholder="Oferta" className="w-full bg-[#4B4B4D] text-white border border-gray-700 rounded-lg py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-[#2BB454]" />
                     </div>
                     <div className="flex gap-4">
-                        <button type="button" onClick={() => setServiceType(ServiceType.MOBILITY)} className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-lg ${serviceType === ServiceType.MOBILITY ? 'bg-green-600' : 'bg-gray-800'}`}>
+                        <button type="button" onClick={() => setServiceType(ServiceType.MOBILITY)} className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-lg ${serviceType === ServiceType.MOBILITY ? 'bg-[#2BB454]' : 'bg-[#4B4B4D]'}`}>
                             <CarIcon /> {ServiceType.MOBILITY}
                         </button>
-                         <button type="button" onClick={() => setServiceType(ServiceType.DELIVERY)} className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-lg ${serviceType === ServiceType.DELIVERY ? 'bg-green-600' : 'bg-gray-800'}`}>
+                         <button type="button" onClick={() => setServiceType(ServiceType.DELIVERY)} className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-lg ${serviceType === ServiceType.DELIVERY ? 'bg-[#2BB454]' : 'bg-[#4B4B4D]'}`}>
                             <PackageIcon /> {ServiceType.DELIVERY}
                         </button>
                     </div>
                 </div>
-                <button type="submit" className="w-full bg-green-600 hover:bg-green-700 rounded-lg py-3 mt-6 font-bold text-lg">Buscar Conductor</button>
+                <button type="submit" className="w-full bg-[#2BB454] hover:bg-[#249b48] rounded-lg py-3 mt-6 font-bold text-lg">Buscar Conductor</button>
             </form>
         </div>
     );
 };
 
 const WaitingScreen = ({ text }: { text: string }) => (
-    <div className="bg-gray-900/80 backdrop-blur-md rounded-t-3xl p-6 text-center">
+    <div className="bg-[#282829]/90 backdrop-blur-md rounded-t-3xl p-6 text-center">
         <div className="animate-pulse text-gray-400 mb-4">
             <CarIcon className="w-12 h-12 mx-auto" />
         </div>
@@ -106,7 +106,7 @@ const WaitingScreen = ({ text }: { text: string }) => (
 
 // FIX: Explicitly type component as React.FC to allow for `key` prop and other React features.
 const DriverOfferCard: React.FC<{ driver: Driver, offer: Offer, onAccept: () => void }> = ({ driver, offer, onAccept }) => (
-    <div className="bg-gray-800 p-4 rounded-lg flex items-center justify-between">
+    <div className="bg-[#4B4B4D] p-4 rounded-lg flex items-center justify-between">
         <div className="flex items-center gap-4">
             <img src={driver.avatarUrl} alt={driver.name} className="w-12 h-12 rounded-full" />
             <div>
@@ -119,13 +119,13 @@ const DriverOfferCard: React.FC<{ driver: Driver, offer: Offer, onAccept: () => 
         </div>
         <div className="text-right">
             <p className="text-lg font-bold">${offer.price.toFixed(2)}</p>
-            <button onClick={onAccept} className="bg-green-600 hover:bg-green-700 text-white font-bold py-1 px-4 rounded-lg mt-1">Aceptar</button>
+            <button onClick={onAccept} className="bg-[#2BB454] hover:bg-[#249b48] text-white font-bold py-1 px-4 rounded-lg mt-1">Aceptar</button>
         </div>
     </div>
 );
 
 const OffersScreen = ({ tripRequest, onAcceptOffer }: { tripRequest: TripRequest, onAcceptOffer: (driver: Driver, offer: Offer) => void }) => (
-    <div className="bg-gray-900/80 backdrop-blur-md rounded-t-3xl p-6">
+    <div className="bg-[#282829]/90 backdrop-blur-md rounded-t-3xl p-6">
         <h2 className="text-xl font-bold mb-4">Ofertas de Conductores</h2>
         <div className="space-y-3 max-h-[50vh] overflow-y-auto">
             {tripRequest.offers.map(offer => {
@@ -141,9 +141,9 @@ const TripScreen = ({ trip, userRole }: { trip: OngoingTrip, userRole: UserRole 
     const otherUser = userRole === UserRole.PASSENGER ? trip.driver : trip.request.passenger;
     
     return (
-        <div className="bg-gray-900/80 backdrop-blur-md rounded-t-3xl p-6">
+        <div className="bg-[#282829]/90 backdrop-blur-md rounded-t-3xl p-6">
             <h2 className="text-xl font-bold mb-4">Viaje en Progreso</h2>
-            <div className="bg-gray-800 p-4 rounded-lg">
+            <div className="bg-[#4B4B4D] p-4 rounded-lg">
                 <div className="flex items-center justify-between">
                      <div className="flex items-center gap-4">
                         <img src={otherUser.avatarUrl} alt={otherUser.name} className="w-12 h-12 rounded-full" />
@@ -160,8 +160,8 @@ const TripScreen = ({ trip, userRole }: { trip: OngoingTrip, userRole: UserRole 
                         </div>
                     </div>
                     <div className="flex gap-4">
-                        <button className="bg-gray-600 p-3 rounded-full"><PhoneIcon /></button>
-                        <button className="bg-gray-600 p-3 rounded-full"><MessageSquareIcon /></button>
+                        <button className="bg-[#282829] p-3 rounded-full"><PhoneIcon /></button>
+                        <button className="bg-[#282829] p-3 rounded-full"><MessageSquareIcon /></button>
                     </div>
                 </div>
                 <div className="mt-4 border-t border-gray-600 pt-4">
@@ -175,22 +175,22 @@ const TripScreen = ({ trip, userRole }: { trip: OngoingTrip, userRole: UserRole 
 };
 
 const TripCompleteScreen = ({ trip, onNewRide }: { trip: OngoingTrip, onNewRide: () => void }) => (
-    <div className="bg-gray-900/80 backdrop-blur-md rounded-t-3xl p-6 text-center">
+    <div className="bg-[#282829]/90 backdrop-blur-md rounded-t-3xl p-6 text-center">
         <h2 className="text-2xl font-bold">Viaje Completado!</h2>
         <p className="text-gray-400 mt-2">Pagaste un total de</p>
         <p className="text-4xl font-bold my-4">${trip.finalPrice.toFixed(2)}</p>
         <div className="flex justify-center gap-2 my-6">
             {[1, 2, 3, 4, 5].map(i => <StarIcon key={i} className="w-8 h-8 text-gray-600 hover:text-yellow-400 cursor-pointer" filled={false}/>)}
         </div>
-        <button onClick={onNewRide} className="w-full bg-green-600 hover:bg-green-700 rounded-lg py-3 mt-4 font-bold text-lg">Solicitar Nuevo Viaje</button>
+        <button onClick={onNewRide} className="w-full bg-[#2BB454] hover:bg-[#249b48] rounded-lg py-3 mt-4 font-bold text-lg">Solicitar Nuevo Viaje</button>
     </div>
 );
 
 const DriverDashboard = ({ driver }: { driver: Driver }) => (
-     <div className="bg-gray-900/80 backdrop-blur-md rounded-t-3xl p-6">
+     <div className="bg-[#282829]/90 backdrop-blur-md rounded-t-3xl p-6">
         <div className="flex justify-between items-center">
             <h2 className="text-xl font-bold">Panel de Conductor</h2>
-            <div className={`px-3 py-1 rounded-full text-sm font-semibold ${driver.isOnline ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'}`}>
+            <div className={`px-3 py-1 rounded-full text-sm font-semibold ${driver.isOnline ? 'bg-[#2BB454]/20 text-[#2BB454]' : 'bg-red-500/20 text-red-400'}`}>
                 {driver.isOnline ? 'En Linea' : 'Desconectado'}
             </div>
         </div>
@@ -202,13 +202,13 @@ const DriverDashboard = ({ driver }: { driver: Driver }) => (
 );
 
 const AdminDashboard = () => (
-    <div className="bg-gray-900/80 backdrop-blur-md rounded-t-3xl p-6">
+    <div className="bg-[#282829]/90 backdrop-blur-md rounded-t-3xl p-6">
         <h2 className="text-xl font-bold mb-4">Panel de Administrador</h2>
         <p className="text-gray-400">Bienvenido al panel de control. Aquí puedes gestionar conductores, pasajeros y ver estadísticas.</p>
         {/* Admin features would go here */}
         <div className="mt-6 space-y-4">
             {mockDrivers.map(driver => (
-                 <div key={driver.id} className="bg-gray-800 p-4 rounded-lg flex items-center justify-between">
+                 <div key={driver.id} className="bg-[#4B4B4D] p-4 rounded-lg flex items-center justify-between">
                     <div className="flex items-center gap-4">
                         <img src={driver.avatarUrl} alt={driver.name} className="w-12 h-12 rounded-full" />
                         <div>
@@ -229,10 +229,10 @@ const AdminDashboard = () => (
 
 const RoleSwitcher = ({ onSwitch }: { onSwitch: (role: UserRole) => void }) => (
     <header className="flex justify-center mb-4">
-        <div className="bg-gray-900/80 backdrop-blur-md p-1 rounded-full flex gap-1">
-            <button onClick={() => onSwitch(UserRole.PASSENGER)} className="px-4 py-1.5 rounded-full flex items-center gap-2 hover:bg-gray-800"><UserIcon className="w-5 h-5" /> Pasajero</button>
-            <button onClick={() => onSwitch(UserRole.DRIVER)} className="px-4 py-1.5 rounded-full flex items-center gap-2 hover:bg-gray-800"><SteeringWheelIcon className="w-5 h-5" /> Conductor</button>
-            <button onClick={() => onSwitch(UserRole.ADMIN)} className="px-4 py-1.5 rounded-full flex items-center gap-2 hover:bg-gray-800"><ShieldIcon className="w-5 h-5" /> Admin</button>
+        <div className="bg-[#282829]/90 backdrop-blur-md p-1 rounded-full flex gap-1">
+            <button onClick={() => onSwitch(UserRole.PASSENGER)} className="px-4 py-1.5 rounded-full flex items-center gap-2 hover:bg-[#4B4B4D]"><UserIcon className="w-5 h-5" /> Pasajero</button>
+            <button onClick={() => onSwitch(UserRole.DRIVER)} className="px-4 py-1.5 rounded-full flex items-center gap-2 hover:bg-[#4B4B4D]"><SteeringWheelIcon className="w-5 h-5" /> Conductor</button>
+            <button onClick={() => onSwitch(UserRole.ADMIN)} className="px-4 py-1.5 rounded-full flex items-center gap-2 hover:bg-[#4B4B4D]"><ShieldIcon className="w-5 h-5" /> Admin</button>
         </div>
     </header>
 );
@@ -305,13 +305,13 @@ const App: React.FC = () => {
                 (error) => {
                     console.error("Error getting geolocation: ", error);
                     // Fallback to a default location if permission is denied or fails.
-                    setLocation({ latitude: 34.0522, longitude: -118.2437 });
+                    setLocation({ latitude: 19.4326, longitude: -99.1332 });
                 }
             );
         } else {
             console.error("Geolocation is not supported by this browser.");
              // Fallback to a default location
-            setLocation({ latitude: 34.0522, longitude: -118.2437 });
+            setLocation({ latitude: 19.4326, longitude: -99.1332 });
         }
     }, []);
 
