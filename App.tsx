@@ -63,7 +63,7 @@ const RideRequestForm = ({ onRideRequest }: { onRideRequest: (details: Omit<Trip
     };
 
     return (
-        <div className="bg-[#282829]/90 backdrop-blur-md rounded-t-3xl p-6">
+        <div className="bg-black/90 backdrop-blur-md rounded-t-3xl p-6">
             <h2 className="text-xl font-bold mb-4">Solicitar Viaje</h2>
             <form onSubmit={handleSubmit}>
                 <div className="space-y-4">
@@ -95,7 +95,7 @@ const RideRequestForm = ({ onRideRequest }: { onRideRequest: (details: Omit<Trip
 };
 
 const WaitingScreen = ({ text }: { text: string }) => (
-    <div className="bg-[#282829]/90 backdrop-blur-md rounded-t-3xl p-6 text-center">
+    <div className="bg-black/90 backdrop-blur-md rounded-t-3xl p-6 text-center">
         <div className="animate-pulse text-gray-400 mb-4">
             <CarIcon className="w-12 h-12 mx-auto" />
         </div>
@@ -125,7 +125,7 @@ const DriverOfferCard: React.FC<{ driver: Driver, offer: Offer, onAccept: () => 
 );
 
 const OffersScreen = ({ tripRequest, onAcceptOffer }: { tripRequest: TripRequest, onAcceptOffer: (driver: Driver, offer: Offer) => void }) => (
-    <div className="bg-[#282829]/90 backdrop-blur-md rounded-t-3xl p-6">
+    <div className="bg-black/90 backdrop-blur-md rounded-t-3xl p-6">
         <h2 className="text-xl font-bold mb-4">Ofertas de Conductores</h2>
         <div className="space-y-3 max-h-[50vh] overflow-y-auto">
             {tripRequest.offers.map(offer => {
@@ -141,7 +141,7 @@ const TripScreen = ({ trip, userRole }: { trip: OngoingTrip, userRole: UserRole 
     const otherUser = userRole === UserRole.PASSENGER ? trip.driver : trip.request.passenger;
     
     return (
-        <div className="bg-[#282829]/90 backdrop-blur-md rounded-t-3xl p-6">
+        <div className="bg-black/90 backdrop-blur-md rounded-t-3xl p-6">
             <h2 className="text-xl font-bold mb-4">Viaje en Progreso</h2>
             <div className="bg-[#4B4B4D] p-4 rounded-lg">
                 <div className="flex items-center justify-between">
@@ -175,7 +175,7 @@ const TripScreen = ({ trip, userRole }: { trip: OngoingTrip, userRole: UserRole 
 };
 
 const TripCompleteScreen = ({ trip, onNewRide }: { trip: OngoingTrip, onNewRide: () => void }) => (
-    <div className="bg-[#282829]/90 backdrop-blur-md rounded-t-3xl p-6 text-center">
+    <div className="bg-black/90 backdrop-blur-md rounded-t-3xl p-6 text-center">
         <h2 className="text-2xl font-bold">Viaje Completado!</h2>
         <p className="text-gray-400 mt-2">Pagaste un total de</p>
         <p className="text-4xl font-bold my-4">${trip.finalPrice.toFixed(2)}</p>
@@ -187,7 +187,7 @@ const TripCompleteScreen = ({ trip, onNewRide }: { trip: OngoingTrip, onNewRide:
 );
 
 const DriverDashboard = ({ driver }: { driver: Driver }) => (
-     <div className="bg-[#282829]/90 backdrop-blur-md rounded-t-3xl p-6">
+     <div className="bg-black/90 backdrop-blur-md rounded-t-3xl p-6">
         <div className="flex justify-between items-center">
             <h2 className="text-xl font-bold">Panel de Conductor</h2>
             <div className={`px-3 py-1 rounded-full text-sm font-semibold ${driver.isOnline ? 'bg-[#2BB454]/20 text-[#2BB454]' : 'bg-red-500/20 text-red-400'}`}>
@@ -202,7 +202,7 @@ const DriverDashboard = ({ driver }: { driver: Driver }) => (
 );
 
 const AdminDashboard = () => (
-    <div className="bg-[#282829]/90 backdrop-blur-md rounded-t-3xl p-6">
+    <div className="bg-black/90 backdrop-blur-md rounded-t-3xl p-6">
         <h2 className="text-xl font-bold mb-4">Panel de Administrador</h2>
         <p className="text-gray-400">Bienvenido al panel de control. Aquí puedes gestionar conductores, pasajeros y ver estadísticas.</p>
         {/* Admin features would go here */}
@@ -229,7 +229,7 @@ const AdminDashboard = () => (
 
 const RoleSwitcher = ({ onSwitch }: { onSwitch: (role: UserRole) => void }) => (
     <header className="flex justify-center mb-4">
-        <div className="bg-[#282829]/90 backdrop-blur-md p-1 rounded-full flex gap-1">
+        <div className="bg-black/90 backdrop-blur-md p-1 rounded-full flex gap-1">
             <button onClick={() => onSwitch(UserRole.PASSENGER)} className="px-4 py-1.5 rounded-full flex items-center gap-2 hover:bg-[#4B4B4D]"><UserIcon className="w-5 h-5" /> Pasajero</button>
             <button onClick={() => onSwitch(UserRole.DRIVER)} className="px-4 py-1.5 rounded-full flex items-center gap-2 hover:bg-[#4B4B4D]"><SteeringWheelIcon className="w-5 h-5" /> Conductor</button>
             <button onClick={() => onSwitch(UserRole.ADMIN)} className="px-4 py-1.5 rounded-full flex items-center gap-2 hover:bg-[#4B4B4D]"><ShieldIcon className="w-5 h-5" /> Admin</button>

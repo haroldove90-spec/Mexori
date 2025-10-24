@@ -1,0 +1,22 @@
+{
+  "short_name": "Mexori",
+  "name": "Mexori",
+  "description": "A ride-sharing application prototype where passengers can offer a price for their trip and negotiate with nearby drivers in real-time.",
+  "icons": [
+    {
+      "src": "https://appdesignmex.com/mexori.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "https://appdesignmex.com/mexori.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#2BB454",
+  "background_color": "#000000"
+}
