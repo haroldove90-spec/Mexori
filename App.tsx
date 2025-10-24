@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { AppState, ServiceType, UserRole, VerificationStatus, type Driver, type Passenger, type Offer, type TripRequest, type OngoingTrip, type User } from './types';
-import MapPlaceholder from './components/MapPlaceholder';
+import MapView from './components/MapPlaceholder';
 import { CarIcon, ChevronLeftIcon, DollarSignIcon, MapPinIcon, MessageSquareIcon, PackageIcon, PhoneIcon, StarIcon, UserIcon, ShieldIcon, SteeringWheelIcon, CheckCircleIcon, XCircleIcon } from './components/Icons';
 
 // --- MOCK DATABASE ---
@@ -60,8 +60,6 @@ const RoleSwitcher: React.FC<RoleSwitcherProps> = ({ currentRole, onSwitch }) =>
 
 // ====== PASSENGER FLOW COMPONENTS ======
 const PassengerFlow = ({ db }: { db: MockDB }) => {
-    // [The entire passenger flow logic from the original App.tsx is placed here, adapted to use the shared db]
-    // For brevity, this is a simplified version of the original flow.
     const [appState, setAppState] = useState<AppState>(AppState.REQUESTING_RIDE);
     const [activeRequest, setActiveRequest] = useState<TripRequest | null>(null);
     const [acceptedTrip, setAcceptedTrip] = useState<OngoingTrip | null>(null);
@@ -140,7 +138,6 @@ const PassengerFlow = ({ db }: { db: MockDB }) => {
         default: return null;
     }
 }
-// [Helper components for Passenger Flow: RideRequestView, SearchingView, OffersView, TripView - adapted slightly]
 const RideRequestView: React.FC<{onSubmit: (d: any) => void}> = ({ onSubmit }) => {
     const [destination, setDestination] = useState('');
     const [offeredPrice, setOfferedPrice] = useState(50);
@@ -373,6 +370,40 @@ const AdminFlow = ({ db }: { db: MockDB }) => {
 function App() {
     const [userRole, setUserRole] = useState<UserRole>(UserRole.PASSENGER);
     const db = useMockDatabase();
+    const [location, setLocation] = useState<{ latitude: number, longitude: number } | null>(null);
+    const [locationError, setLocationError] = useState<string | null>(null);
+
+    useEffect(() => {
+        let isMounted = true;
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    if (isMounted) {
+                        setLocation({
+                            latitude: position.coords.latitude,
+                            longitude: position.coords.longitude,
+                        });
+                        setLocationError(null);
+                    }
+                },
+                (error) => {
+                    if (isMounted) {
+                        console.error("Geolocation error:", error);
+                        setLocationError("No se pudo obtener la ubicación.");
+                    }
+                },
+                { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+            );
+        } else {
+             if (isMounted) {
+                setLocationError("La geolocalización no es compatible con este navegador.");
+            }
+        }
+        
+        return () => {
+            isMounted = false;
+        };
+    }, []);
 
     const renderCurrentView = () => {
         switch (userRole) {
@@ -390,12 +421,18 @@ function App() {
     return (
         <div className="h-screen w-screen flex items-center justify-center bg-gray-900 p-4 font-sans">
             <div className="w-full max-w-sm h-[85vh] max-h-[900px] bg-gray-900 rounded-3xl shadow-2xl overflow-hidden relative flex flex-col justify-end">
-                <MapPlaceholder />
+                <MapView latitude={location?.latitude} longitude={location?.longitude} />
+                
+                {locationError && !location && (
+                     <div className="absolute top-4 left-1/2 -translate-x-1/2 w-11/12 bg-red-900/80 backdrop-blur-sm text-white text-xs p-2 rounded-lg z-20 text-center shadow-lg">
+                        <p>{locationError} Mostrando mapa de respaldo.</p>
+                    </div>
+                )}
+
                 <div className="absolute top-0 bottom-0 left-0 right-0 z-10 flex flex-col justify-end">
                    {renderCurrentView()}
                 </div>
                 
-                {/* Keep RoleSwitcher outside the main content area to avoid re-renders */}
                 <div className="h-[65px]"></div>
                 <RoleSwitcher currentRole={userRole} onSwitch={setUserRole} />
 
