@@ -1,0 +1,7 @@
+{
+  "name": "Mexori - Ride Sharing",
+  "description": "A ride-sharing application prototype where passengers can offer a price for their trip and negotiate with nearby drivers in real-time. This app demonstrates the core passenger flow from requesting a ride to trip completion.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
