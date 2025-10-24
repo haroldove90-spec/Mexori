@@ -243,6 +243,7 @@ const App: React.FC = () => {
     const [appState, setAppState] = useState<AppState>(AppState.REQUESTING_RIDE);
     const [tripRequest, setTripRequest] = useState<TripRequest | null>(null);
     const [ongoingTrip, setOngoingTrip] = useState<OngoingTrip | null>(null);
+    const [location, setLocation] = useState<{ latitude: number; longitude: number } | null>(null);
 
     const handleRideRequest = (details: Omit<TripRequest, 'id' | 'passenger' | 'createdAt' | 'offers'>) => {
         if (currentUser.role !== UserRole.PASSENGER) return;
@@ -290,6 +291,29 @@ const App: React.FC = () => {
             setAppState(AppState.ADMIN_DASHBOARD);
         }
     }
+
+    // Effect for getting user location
+    useEffect(() => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    setLocation({
+                        latitude: position.coords.latitude,
+                        longitude: position.coords.longitude,
+                    });
+                },
+                (error) => {
+                    console.error("Error getting geolocation: ", error);
+                    // Fallback to a default location if permission is denied or fails.
+                    setLocation({ latitude: 34.0522, longitude: -118.2437 });
+                }
+            );
+        } else {
+            console.error("Geolocation is not supported by this browser.");
+             // Fallback to a default location
+            setLocation({ latitude: 34.0522, longitude: -118.2437 });
+        }
+    }, []);
 
     // Effect for simulating offers arriving
     useEffect(() => {
@@ -355,7 +379,7 @@ const App: React.FC = () => {
 
     return (
         <div className="bg-black text-white min-h-screen font-sans antialiased">
-            <MapView latitude={34.0522} longitude={-118.2437} />
+            <MapView latitude={location?.latitude} longitude={location?.longitude} />
             <div className="relative z-10 p-4 flex flex-col h-screen">
                 <RoleSwitcher onSwitch={handleSwitchRole} />
                 <main className="flex-grow flex flex-col justify-end">

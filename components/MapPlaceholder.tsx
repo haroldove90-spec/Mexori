@@ -1,4 +1,6 @@
+
 import React from 'react';
+import { MapPinIcon } from './Icons';
 
 interface MapViewProps {
     latitude?: number;
@@ -34,11 +36,12 @@ const MapView: React.FC<MapViewProps> = ({ latitude, longitude }) => {
         
         // Fallback placeholder
         return (
-            <img 
-                src="https://picsum.photos/seed/map/1080/1920" 
-                alt="Map of a city"
-                className="w-full h-full object-cover opacity-30"
-            />
+            <div className="w-full h-full flex items-center justify-center">
+                <div className="text-center text-gray-400">
+                    <MapPinIcon className="w-12 h-12 mx-auto animate-pulse" />
+                    <p className="mt-2 text-lg">Obteniendo ubicación...</p>
+                </div>
+            </div>
         );
     };
 
